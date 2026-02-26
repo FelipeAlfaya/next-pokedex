@@ -21,7 +21,8 @@ function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-const TYPE_ICONS: Record<string, React.ElementType> = {
+type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+const TYPE_ICONS: Record<string, IconComponent> = {
   fire: Flame,
   water: Droplets,
   grass: Leaf,
@@ -117,22 +118,15 @@ export default function TypesPage() {
                         style={{ background: `radial-gradient(circle at 50% 30%, ${config.hex}, transparent 70%)` }}
                       />
 
-                      <Icon
-                        className="absolute top-2 right-2 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500"
-                        style={{ color: config.hex }}
-                        size={60}
-                        strokeWidth={1}
-                      />
+                      <span className="absolute top-2 right-2 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 [&>svg]:w-[60px] [&>svg]:h-[60px]">
+                        <Icon style={{ color: config.hex }} size={60} strokeWidth={1} />
+                      </span>
 
                       <div
-                        className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: `${config.hex}20`, boxShadow: `0 0 20px ${config.hex}00`, }}
+                        className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 [&>svg]:drop-shadow-[0_0_8px_currentColor] group-hover:[&>svg]:drop-shadow-[0_0_8px_currentColor]"
+                        style={{ backgroundColor: `${config.hex}20`, boxShadow: `0 0 20px ${config.hex}00` }}
                       >
-                        <Icon
-                          size={22}
-                          style={{ color: config.hex }}
-                          className="transition-all duration-300 group-hover:drop-shadow-[0_0_8px_currentColor]"
-                        />
+                        <Icon size={22} style={{ color: config.hex }} />
                       </div>
 
                       <span
